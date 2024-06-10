@@ -1,9 +1,9 @@
 # here we keep all configure servers file together
 - name: "configure {{ component }} Server"
-  hosts: localhost
+  hosts: all   # whatever we give after -i it will consider all
   connection: local 
   vars_files:
-  - "variables-{{ environment }}.yaml"  # we pass the required env
+  - "variables-{{ env }}.yaml"  # we pass the required env, dont give environmnet its a reserved name
   become: yes
   roles:
   - "{{ component }}"
