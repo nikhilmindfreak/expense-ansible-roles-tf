@@ -1,0 +1,15 @@
+# here we keep all configure servers file together
+- name: "configure {{ component }} Server"
+  hosts: localhost
+  connection: local 
+  vars_files:
+  - "variables-{{ environment }}.yaml"  # we pass the required env
+  become: yes
+  roles:
+  - "{{ component }}"
+
+  # now we give component in cli 
+  # component=bd/backed/frontend
+  # ansible-playbook "filename" -e component=bd/backed/frontend
+
+

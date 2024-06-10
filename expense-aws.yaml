@@ -1,0 +1,35 @@
+- name: create ec2 and r53 records
+  hosts: localhost
+  vars:
+    zone: devopsme.online   
+    instances:
+    - db
+    - backend
+    - frontend
+  tasks:
+  - name: create ec2 instances
+    amazon.aws.ec2_instance:
+      instance_type: t2.micro
+      name: "{{ item }}"
+      security_group: allow everything #replace with you AWS values
+      image_id: ami-090252cbe067a9e58 # give your ami like we have rhel
+      tags:
+        Name: "{{ item }}"  # here we use tags to replace name with loop item
+    loop: "{{ instances }}"
+    register: ec2_instances_info   # register keyword is used to capture the output of a task and store it in a variable. This allows you to access and manipulate the output of a task later in the playbook or use it for conditionals, error handling, or debugging purposes.
+
+  - name: print output
+    ansible.builtin.debug:    
+      msg: "Output: {{ ec2_instances_info }}"  # here we take value from the output to create route 53 parameneters
+
+  - name: create r53 records
+    amazon.aws.route53:
+      state: present
+      zone: " {{ zone }}"
+      record: " {{ item }}.{{ zone }}"
+      type: A
+      value: "{{ item.instances.private_ip_address }}"
+      overwrite: true  # we alraedy have insaatnce it will overwrite
+      ttl: 1   # we gave ttl 1 sec
+    loop: "{{ ec2_instances_info.results }}"
+

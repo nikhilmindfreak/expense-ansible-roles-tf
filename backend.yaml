@@ -1,0 +1,9 @@
+- name: configure backend Server  # we can replace with compoent and pass it from outside {{ component / backend / frontend}}
+  hosts: backend
+  become: yes
+  vars_files:
+  - credentials.yaml
+  roles:
+  - backend
+
+ 
