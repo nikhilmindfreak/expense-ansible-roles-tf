@@ -2,3 +2,4 @@ login_user: root
 login_host: db-prod.devopsme.online
 login_password: ExpenseApp@1
 DB_HOST: db-prod.devopsme.online
+BACKEND_API_URL: backend.app-prod.devopsme.online
