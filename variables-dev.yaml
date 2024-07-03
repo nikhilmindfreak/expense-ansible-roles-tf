@@ -3,3 +3,4 @@ login_host: db-dev.devopsme.online
 login_password: ExpenseApp1
 DB_HOST: db-dev.devopsme.online
 BACKEND_API_URL: backend.app-dev.devopsme.online
+nexus_url: nexus.devopsme.online:8081
