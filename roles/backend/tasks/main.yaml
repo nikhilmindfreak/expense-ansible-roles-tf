@@ -59,8 +59,6 @@
     target: /app/schema/backend.sql
     state: import
     name: all
-  notify:
-    - daemon reload
 
 - name: start and enable backend service
   tags: 
@@ -68,4 +66,3 @@
   ansible.builtin.service:
     name: backend
     state: restarted
-    enabled: yes
